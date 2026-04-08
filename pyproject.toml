@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "medical-triage-env"
+version = "1.0.0"
+description = "A medical triage environment for AI agent evaluation"
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "openai",
+    "pyyaml",
+    "requests",
+    "openenv>=0.1.13",
+]
+
+[project.scripts]
+server = "server.app:main"
+
+[tool.setuptools.packages.find]
+where = ["."]

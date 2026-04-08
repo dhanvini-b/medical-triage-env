@@ -1,0 +1,56 @@
+name: medical-triage-env
+version: "1.0.0"
+description: >
+  A medical triage environment where an AI agent must assess patient
+  symptoms, vitals, and history to assign the correct urgency level:
+  emergency, urgent, or routine. Designed to evaluate clinical
+  reasoning under uncertainty.
+
+author: your-name-here
+tags: [medical, triage, healthcare, real-world]
+
+tasks:
+  - name: easy
+    description: Classic emergency presentation. Chest pain, low BP, low SpO2.
+    difficulty: easy
+    max_steps: 1
+    success_threshold: 0.7
+
+  - name: medium
+    description: Ambiguous fever and fatigue. Could be flu, dengue, or typhoid.
+    difficulty: medium
+    max_steps: 1
+    success_threshold: 0.5
+
+  - name: hard
+    description: Atypical MI in elderly diabetic. Easy to miss, high stakes.
+    difficulty: hard
+    max_steps: 1
+    success_threshold: 0.7
+
+observation_space:
+  patient_id: string
+  age: integer
+  symptoms: list[string]
+  vitals:
+    heart_rate: float
+    bp_systolic: float
+    bp_diastolic: float
+    spo2: float
+    temperature: float
+  history: list[string]
+  step_number: integer
+
+action_space:
+  triage_level: "emergency | urgent | routine"
+  reasoning: string
+
+reward:
+  min: 0.0
+  max: 1.0
+  description: >
+    0.7 for correct triage level, up to 0.3 for reasoning quality
+    based on symptoms and history mentioned.
+
+entry_point: server:app
+port: 7860
