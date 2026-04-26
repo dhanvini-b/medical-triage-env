@@ -4,9 +4,10 @@ description: >
   A medical triage environment where an AI agent must assess patient
   symptoms, vitals, and history to assign the correct urgency level:
   emergency, urgent, or routine. Designed to evaluate clinical
-  reasoning under uncertainty.
+  reasoning under uncertainty. Includes 9 patient templates across
+  3 difficulty levels trained with GRPO.
 
-author: your-name-here
+author: dhanvini
 tags: [medical, triage, healthcare, real-world]
 
 tasks:
@@ -46,11 +47,12 @@ action_space:
   reasoning: string
 
 reward:
-  min: 0.0
+  min: -0.3
   max: 1.0
   description: >
-    0.7 for correct triage level, up to 0.3 for reasoning quality
-    based on symptoms and history mentioned.
+    0.7 for correct triage level. Negative reward (-0.3) for catastrophic
+    under-triage (missing a true emergency). Up to 0.2 for reasoning quality
+    based on symptoms and history referenced. 0.1 for format compliance.
 
 entry_point: server:app
 port: 7860
